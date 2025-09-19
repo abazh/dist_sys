@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Sun Sep  8 17:49:49 2024 DFARAWR
+Created on Sun Sep  8 17:49:49 2024 
 
 @author: widhi
 """
