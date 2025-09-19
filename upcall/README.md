@@ -11,3 +11,16 @@ Lalu server mengirimkan callback ke client dengan pesan ;
 ```
 Received upcall from server: Upcall event: Processing 1
 ```
+Ini berlangsung terus menerus hingga salah satu dari mereka (client/server) memutus koneksinya
+
+Pada pola komunikasi upcall, digunakan protokol TCP karena terdapat pada potongan kode dibawah ini yang menunjukkan bahwa secara default, Python akan membuat socket dengan tipe TCP
+```
+server_socket = socket.socket()
+client_socket = socket.socket()
+```
+Pada kode servercall.py, terdapat juga potongan kode seperti dibawah ini yang menunjukkan karakteristik dari protokol TCP, yaitu .listen() dan .accept() ;
+```
+server_socket.listen(1)
+conn, address = server_socket.accept()  
+```
+<img src="https://i.imgur.com/DbOqtzz.jpeg">
