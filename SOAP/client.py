@@ -19,3 +19,9 @@ result = client.service.add(10, 5)
 # Menampilkan hasil penjumlahan
 print(f'Hasil penjumlahan dari server SOAP: {result}')
 
+# Memanggil metode pengurangan dari layanan SOAP server
+result_sub = client.service.subtract(10, 5)
+
+# Menampilkan hasil pengurangan
+print(f'Hasil pengurangan dari server SOAP: {result_sub}')
+

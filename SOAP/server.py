@@ -16,6 +16,10 @@ class CalculatorService(ServiceBase):
     def add(ctx, a, b):
         return a + b
 
+    @rpc(Integer, Integer, _returns=Integer)
+    def subtract(ctx, a, b):
+        return a - b
+
 # Membuat aplikasi SOAP dengan protokol Soap11
 app = Application([CalculatorService],
                   tns='spyne.examples.calculator',
