@@ -24,15 +24,20 @@ def call(endpoint, a, b):
         print(f"{endpoint} exception: {e}")
 
 def main():
-    parser = argparse.ArgumentParser(description="Simple REST client for add/mul endpoints")
-    parser.add_argument('--op', choices=['add','mul','both'], default='both', help='Operation to invoke')
-    parser.add_argument('-a', type=int, default=10)
-    parser.add_argument('-b', type=int, default=5)
+    parser = argparse.ArgumentParser(description="Simple REST client for add/mul/sub/div endpoints")
+    parser.add_argument('--op', choices=['add','mul','sub','div','all'], default='all', help='Operation to invoke')
+    parser.add_argument('-a', type=float, help='First number', required=True)
+    parser.add_argument('-b', type=float, help='Second number', required=True)
     args = parser.parse_args()
-    if args.op in ('add','both'):
+
+    if args.op in ('add', 'all'):
         call('add', args.a, args.b)
-    if args.op in ('mul','both'):
+    if args.op in ('mul', 'all'):
         call('mul', args.a, args.b)
+    if args.op in ('sub', 'all'):
+        call('sub', args.a, args.b)
+    if args.op in ('div', 'all'):
+        call('div', args.a, args.b)
 
 if __name__ == '__main__':
     sys.exit(main())
