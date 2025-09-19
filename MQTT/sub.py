@@ -12,22 +12,29 @@ import sys
 # Gunakan broker lokal dalam docker compose
 broker = "mqtt-broker"  # Service name
 port = 1883  # Port default untuk MQTT
-topic = "sister/temp"
+
+# Tambahkan dukungan untuk banyak topik
+topics = ["sister/temp", "sister/humidity"]
 
 # Callback ketika koneksi berhasil
 def on_connect(client, userdata, flags, rc, properties=None):
     if rc == 0:
         print(f"Berhasil terhubung ke broker MQTT {broker}")
-        # Berlangganan topik setelah koneksi berhasil
-        client.subscribe(topic)
-        print(f"Berlangganan topik: {topic}")
+        # Berlangganan ke semua topik dalam daftar
+        for t in topics:
+            client.subscribe(t)
+            print(f"Berlangganan topik: {t}")
     else:
         print(f"Gagal terhubung ke broker, kode error: {rc}")
         sys.exit(1)
 
 # Callback untuk pesan yang diterima
 def on_message(client, userdata, message, properties=None):
-    print(f"Received message: {message.payload.decode()} (Topic: {message.topic})")
+    msg = f"Received message: {message.payload.decode()} (Topic: {message.topic})"
+    print(msg)
+    # Simpan pesan ke file log
+    with open("mqtt_messages.log", "a") as log_file:
+        log_file.write(msg + "\n")
 
 # Inisialisasi klien MQTT dengan API versi terbaru
 client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
