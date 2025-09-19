@@ -9,14 +9,15 @@ Created on Sun Sep  8 17:49:49 2024
 import paho.mqtt.client as mqtt
 import time
 import sys
+import random
 
 # Gunakan broker lokal dalam docker compose
 broker = "mqtt-broker"
 port = 1883  # Port default untuk MQTT
 
 # Inisialisasi topik dan pesan suhu
-topic = "sister/temp"
-suhu = 28  # Suhu tetap 28'C
+topic_temp = "sister/temp"
+topic_humidity = "sister/humidity"
 
 # Callback untuk koneksi
 def on_connect(client, userdata, flags, rc, properties=None):
@@ -38,17 +39,21 @@ except Exception as e:
     print(f"Gagal menghubungkan ke broker: {e}")
     sys.exit(1)
 
-# Loop untuk mengirim pesan setiap detik
+# Mengirimkan data suhu dan kelembapan secara periodik
 try:
     while True:
-        # Mempublikasikan suhu ke topik
-        message = f"Suhu: {suhu}°C"
-        client.publish(topic, message)
-        print(f"Published: {message}")
-        
-        # Tunggu 1 detik sebelum mengirim lagi
-        time.sleep(1)
+        suhu = random.randint(20, 35)  # Suhu acak antara 20°C dan 35°C
+        kelembapan = random.randint(30, 50)  # Kelembapan acak antara 30% dan 50%
 
+        # Publikasi ke topik suhu
+        client.publish(topic_temp, f"{suhu}°C")
+        print(f"Mengirim suhu: {suhu}°C")
+
+        # Publikasi ke topik kelembapan
+        client.publish(topic_humidity, f"{kelembapan}%")
+        print(f"Mengirim kelembapan: {kelembapan}%")
+
+        time.sleep(1)  # Tunggu 1 detik sebelum mengirim data berikutnya
 except KeyboardInterrupt:
     print("Publisher dihentikan.")
     client.disconnect()
