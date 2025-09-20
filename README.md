@@ -1,9 +1,8 @@
-# Distributed Systems Practice - Containerized
+# LK01: Lingkungan Praktik Mandiri + Ujicoba <i>Messaging Protocols</i>
 
-This repository demonstrates multiple distributed system communication patterns. Each section now has an isolated Docker / Docker Compose setup so the host Python environment remains untouched.
 
-## Prerequisites
-- Docker Engine + Docker Compose plugin
+Faiz Muhammad Hilmi Nurhakim Rizqillah - 256150100111015
+<br> Sistem Terdistribusi A
 
 ## Sections & How to Run
 
